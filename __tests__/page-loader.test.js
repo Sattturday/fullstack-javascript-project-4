@@ -24,4 +24,27 @@ describe('page loader', () => {
 
     expect(content).toBe(html)
   })
+
+  test('throws error on http error', async () => {
+    const url = 'https://example.com'
+
+    nock('https://example.com')
+      .get('/')
+      .reply(500)
+
+    await expect(loadPage(url, tmpDir)).rejects.toThrow()
+  })
+
+  test('throws error on fs error', async () => {
+    const url = 'https://example.com'
+    const html = '<html></html>'
+
+    nock('https://example.com')
+      .get('/')
+      .reply(200, html)
+
+    const invalidDir = path.join(tmpDir, 'non-existent-dir')
+
+    await expect(loadPage(url, invalidDir)).rejects.toThrow()
+  })
 })
