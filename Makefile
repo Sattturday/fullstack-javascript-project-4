@@ -1,9 +1,6 @@
 install:
 	npm ci
 
-gendiff:
-	node bin/page-loader.js
-
 publish:
 	npm publish --dry-run
 

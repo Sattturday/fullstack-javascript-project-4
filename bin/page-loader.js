@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import loadPage from '../src/index.js';
+import { program } from 'commander'
+import loadPage from '../src/index.js'
 
 program
   .description('Page loader utility')
@@ -11,12 +11,12 @@ program
   .action((url, options) => {
     loadPage(url, options.output)
       .then((filepath) => {
-        console.log(filepath);
+        console.log(filepath)
       })
       .catch((err) => {
-        console.error(err.message);
-        process.exit(1);
-      });
-  });
+        console.error(err.message)
+        process.exit(1)
+      })
+  })
 
-program.parse();
+program.parse()
