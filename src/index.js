@@ -1,13 +1,7 @@
 import axios from 'axios'
 import fs from 'fs/promises'
 import path from 'path'
-
-function getFileName(url) {
-  return url
-    .replace(/^https?:\/\//, '')
-    .replace(/[^a-zA-Z0-9]/g, '-')
-    .concat('.html')
-}
+import { getFileName } from './utils.js'
 
 export default function loadPage(url, outputDir) {
   const fileName = getFileName(url)
