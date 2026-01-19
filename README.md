@@ -27,7 +27,7 @@ page-loader https://ru.hexlet.io/courses
 
 Или с указанием директории:
 
-```bash
+```
 page-loader --output /var/tmp https://ru.hexlet.io/courses
 ```
 
@@ -49,9 +49,35 @@ page-loader --output /var/tmp https://ru.hexlet.io/courses
 https://ru.hexlet.io/courses → ru-hexlet-io-courses.html
 ```
 
+## Скачивание ресурсов (изображений)
+
+Если страница содержит локальные ресурсы (изображения `.png` или `.jpg`), утилита создаёт отдельную папку рядом с HTML-файлом:
+
+```
+<имя-файла>_files
+```
+
+* Все локальные изображения сохраняются в эту папку.
+* Ссылки на изображения в HTML заменяются на локальные пути.
+
+Пример структуры после скачивания:
+
+```
+/var/tmp/ru-hexlet-io-courses.html
+/var/tmp/ru-hexlet-io-courses_files/ru-hexlet-io-assets-professions-nodejs.png
+```
+
+В HTML после обработки:
+
+```
+<img src="ru-hexlet-io-courses_files/ru-hexlet-io-assets-professions-nodejs.png" alt="Иконка профессии Node.js-программист">
+```
+
+Страница остаётся полностью рабочей при открытии локально.
+
 ### Демонстрация работы
 
 [![asciinema](https://asciinema.org/a/RMOBLs3SmEcM2ONU.svg)](https://asciinema.org/a/RMOBLs3SmEcM2ONU)
 
-
+[![asciicast](https://asciinema.org/a/DfOm3TzuHN2prNPU.svg)](https://asciinema.org/a/DfOm3TzuHN2prNPU)
 

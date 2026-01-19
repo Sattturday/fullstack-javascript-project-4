@@ -1,7 +1,9 @@
 import fs from 'fs/promises'
+import fsSync from 'fs'
 import os from 'os'
 import path from 'path'
 import nock from 'nock'
+import { fileURLToPath } from 'url'
 import loadPage from '../src/index.js'
 import { getFileName } from '../src/utils.js'
 
@@ -10,7 +12,7 @@ const __dirname = path.dirname(__filename)
 
 const getFixturePath = name => path.join(__dirname, '..', '__fixtures__', name)
 const readFixtureFile = filename =>
-  fs.readFileSync(getFixturePath(filename), 'utf-8')
+  fsSync.readFileSync(getFixturePath(filename), 'utf-8')
 
 let tmpDir
 
@@ -20,7 +22,7 @@ beforeEach(async () => {
 
 test('downloads page and saves it', async () => {
   const url = 'https://example.com'
-  const html = '<html><body>hello</body></html>'
+  const html = '<html><head></head><body>hello</body></html>'
 
   nock('https://example.com')
     .get('/')
@@ -79,13 +81,13 @@ test('downloads images and replaces links in html', async () => {
   const filesDir = path.join(tmpDir, 'ru-hexlet-io-courses_files')
   const imagePath = path.join(
     filesDir,
-    'ru-hexlet-io-assets-professions-nodejs.png'
+    'ru-hexlet-io-assets-professions-nodejs.png',
   )
 
   const savedHtml = await fs.readFile(filePath, 'utf-8')
 
   expect(savedHtml).toContain(
-    'src="ru-hexlet-io-courses_files/ru-hexlet-io-assets-professions-nodejs.png"'
+    'src="ru-hexlet-io-courses_files/ru-hexlet-io-assets-professions-nodejs.png"',
   )
 
   await expect(fs.stat(filesDir)).resolves.toBeDefined()
@@ -97,5 +99,3 @@ afterEach(async () => {
     await fs.rm(tmpDir, { recursive: true, force: true })
   }
 })
-
-
